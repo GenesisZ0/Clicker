@@ -1,30 +1,9 @@
 #include "ui.h"
 #include "Dimension.h"
 
-int WindowsSize() 
-{
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	int columns, rows;
-
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-	columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-	rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-
-	printf("columns: %d\n", columns);
-	printf("rows: %d\n", rows);
-
-	return columns;
-
-}
-
-
-void input()
-{
-
-}
+ 
+float WindowsSize();
 	
-
-
 int main()
 {
 	
@@ -43,11 +22,6 @@ int main()
 	while (!bQuitGame)
 	{
 
-
-		if ((GetKeyState('S') & 0x8000) != 0)
-		{
-			
-		}
 
 		
 			
@@ -70,15 +44,38 @@ int main()
 
 
 
-		//if (GetCursorPos(&MousePoint)) {
-		//	system("cls");
-		//	ui1.CreateHud(Antimater);
-		//	std::cout << MousePoint.x << "," << MousePoint.y << "\n";
-		//}
+		Sleep(500);
+		
+		std::cout << WindowsSize() << std::endl;
+		
 	}
 
 
 }
 
 
+float WindowsSize()
+{
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	int columns, rows;
+	float x;
+	float y;
+
+	
+
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+	columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+	rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+	printf("columns: %d\n", columns);
+	printf("rows: %d\n", rows);
+
+	
+	
+	x = ((1 - 0) / (237 - 0)) * (237 - columns);
+	x = 1.00 / 237 * columns;
+
+	return x;
+
+}
 

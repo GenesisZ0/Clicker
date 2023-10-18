@@ -132,5 +132,7 @@ void ui::CreateHud(float Antimater)
 	}
 	CreateCube(5, 2, 11, "Ant");
 
+	CreateCube(10, 2, 10, "tamere");
+
 	
 }
