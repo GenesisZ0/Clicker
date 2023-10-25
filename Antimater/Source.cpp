@@ -1,7 +1,7 @@
 #include "ui.h"
 #include "Dimension.h"
 
- 
+void GetWindowPos(int* x, int* y);
 float WindowsSize();
 	
 int main()
@@ -46,7 +46,9 @@ int main()
 
 		Sleep(500);
 		
-		std::cout << WindowsSize() << std::endl;
+		WindowsSize();
+
+		//std::cout << WindowsSize() << std::endl;
 		
 	}
 
@@ -54,12 +56,22 @@ int main()
 }
 
 
+void GetWindowPos(int* x, int* y) {
+	RECT rect = { NULL };
+	if (GetWindowRect(GetConsoleWindow(), &rect)) {
+		*x = rect.left;
+		*y = rect.top;
+	}
+}
+
 float WindowsSize()
 {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	int columns, rows;
 	float x;
 	float y;
+	int windowX;
+	int windowY;
 	float x1;
 	POINT MousePoint;
 
@@ -75,15 +87,16 @@ float WindowsSize()
 	POINT p;
 	if (GetCursorPos(&p))
 	{
-		x1 = static_cast<float>(p.x) / (columns - 1);
+		GetWindowPos(&windowX, &windowY);
+		std::cout << "x: " << p.x - windowX - 8 << "y: " << p.y - windowY -31<< std::endl;
 
-		std::cout << x1;
 	}
 
-	x = ((1 - 0) / (columns - 0)) * (columns - columns);
-	x = 1.00 / columns * columns;
 
-	return x;
+
+	
+
+	return columns;
 
 }
 
