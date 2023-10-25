@@ -15,14 +15,14 @@ int main()
 	ui ui1;
 
 	Dimension dimension;
-	POINT MousePoint;
+	
 	
 	ui1.CreateHud(Antimater);
 
 	while (!bQuitGame)
 	{
 
-
+	
 		
 			
 		if ((GetKeyState(VK_LBUTTON) & 0x8000) != 0 && !HasClicked )
@@ -60,8 +60,9 @@ float WindowsSize()
 	int columns, rows;
 	float x;
 	float y;
+	float x1;
+	POINT MousePoint;
 
-	
 
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 	columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
@@ -71,9 +72,16 @@ float WindowsSize()
 	printf("rows: %d\n", rows);
 
 	
-	
-	x = ((1 - 0) / (237 - 0)) * (237 - columns);
-	x = 1.00 / 237 * columns;
+	POINT p;
+	if (GetCursorPos(&p))
+	{
+		x1 = static_cast<float>(p.x) / (columns - 1);
+
+		std::cout << x1;
+	}
+
+	x = ((1 - 0) / (columns - 0)) * (columns - columns);
+	x = 1.00 / columns * columns;
 
 	return x;
 
