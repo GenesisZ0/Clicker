@@ -3,7 +3,28 @@
 
 void GetWindowPos(int* x, int* y);
 float WindowsSize();
-	
+
+
+
+
+void Refresh()
+{
+	COORD topLeft = { 0, 0 };
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO screen;
+	DWORD written;
+
+	GetConsoleScreenBufferInfo(console, &screen);
+	FillConsoleOutputCharacterA(
+		console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written
+	);
+	FillConsoleOutputAttribute(
+		console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
+		screen.dwSize.X * screen.dwSize.Y, topLeft, &written
+	);
+	SetConsoleCursorPosition(console, topLeft);
+}
+
 int main()
 {
 	
@@ -30,7 +51,7 @@ int main()
 
 			Antimater = Antimater + 1;
 			HasClicked = true;
-			system("cls");
+			Refresh();
 			ui1.CreateHud(Antimater);
 			
 			
@@ -44,9 +65,9 @@ int main()
 
 
 
-		Sleep(500);
+	
 		
-		WindowsSize();
+		///WindowsSize();
 
 		//std::cout << WindowsSize() << std::endl;
 		
@@ -63,6 +84,8 @@ void GetWindowPos(int* x, int* y) {
 		*y = rect.top;
 	}
 }
+
+
 
 float WindowsSize()
 {
@@ -91,6 +114,8 @@ float WindowsSize()
 		std::cout << "x: " << p.x - windowX - 8 << "y: " << p.y - windowY -31<< std::endl;
 
 	}
+
+
 
 
 
